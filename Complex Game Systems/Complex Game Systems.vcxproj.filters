@@ -60,9 +60,6 @@
     <ClCompile Include="..\src\MiniMap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\ArenaTile.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Attack.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

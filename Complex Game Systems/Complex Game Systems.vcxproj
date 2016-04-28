@@ -21,7 +21,6 @@
   <ItemGroup>
     <ClCompile Include="..\dep\imgui\imgui.cpp" />
     <ClCompile Include="..\dep\imgui\imgui_draw.cpp" />
-    <ClCompile Include="..\src\ArenaTile.cpp" />
     <ClCompile Include="..\src\BaseApplication.cpp" />
     <ClCompile Include="..\src\Camera.cpp" />
     <ClCompile Include="..\src\EvolutionApplication.cpp" />
