@@ -15,6 +15,7 @@
 #include "imgui_impl_glfw_gl3.h"
 #include "Defines.h"
 
+// Comment
 bool EvolutionApplication::startup()
 {
 	Window::GetInstance().InitialiseWindow("Todd Hamilton - Evolution Application", SCREEN_X, SCREEN_Y);
