@@ -1,3 +1,8 @@
+// Author:					Todd Hamilton
+// Last Change:				28/04/16
+// Description of Change:	Commented
+// Description of File:		Window singleton class
+
 #pragma once
 
 #include "gl_core_4_4.h"

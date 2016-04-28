@@ -1,3 +1,8 @@
+// Author:					Todd Hamilton
+// Last Change:				28/04/16
+// Description of Change:	Commented
+// Description of File:		EvolutionApplication class, game is run here. Includes all game code and objects
+
 #pragma once
 
 #include "BaseApplication.h"

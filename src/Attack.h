@@ -1,3 +1,8 @@
+// Author:					Todd Hamilton
+// Last Change:				28/04/16
+// Description of Change:	Commented
+// Description of File:		Attack derived class. Used for any temporary projectile or indicator.
+
 #pragma once
 
 #include "GameObject.h"

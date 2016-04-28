@@ -1,17 +1,9 @@
+// Author:					Todd Hamilton
+// Last Change:				28/04/16
+// Description of Change:	Commented
+// Description of File:		Timer and Cooldown classes
+
 #pragma once
-
-class TickCounter
-{
-public:
-	TickCounter() : tickTime(0), ticksRemaining(0), timeRemaining(0) {}
-	void Start(float a_tickTime, int a_ticks, bool a_immediateTick = true);
-	int GetTicksPassed(float a_deltaTime);
-
-private:
-	float ticksRemaining;
-	float tickTime;
-	float timeRemaining;
-};
 
 class Cooldown
 {

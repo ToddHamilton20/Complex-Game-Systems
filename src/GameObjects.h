@@ -1,7 +1,11 @@
+// Author:					Todd Hamilton
+// Last Change:				28/04/16
+// Description of Change:	Commented
+// Description of File:		GameObjects struct, Once instance stores all game objects.
+
 #pragma once
 
 #include <vector>
-
 
 class Player;
 

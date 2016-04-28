@@ -1,3 +1,8 @@
+// Author:					Todd Hamilton
+// Last Change:				28/04/16
+// Description of Change:	Commented
+// Description of File:		Zombie class
+
 #pragma once
 
 #include "GameObject.h"
