@@ -1,0 +1,13 @@
+IMPORTANT:
+- Fitness Function tweaking
+- Simple menu
+- Hit marker
+
+NOT IMPORTANT:
+- Transparent fade out
+- Ensure 1280, 720 are used as window size variables and not magic numbers
+- Object pool sub zombies and attacks
+- Link healing ticks to speed, health and strength - Maybe
+- Link projectile and fire hits to strength - Maybe
+- Try Random and Tournament selection methods - Maybe
+- Source folders
