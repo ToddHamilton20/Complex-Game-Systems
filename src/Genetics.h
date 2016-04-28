@@ -11,6 +11,7 @@
 #include <random>
 #include <atomic>
 
+// Chromosome struct, stores float fitness and std::vector<T> trait encoding
 template <typename T>
 struct Chromosome
 {
@@ -23,6 +24,7 @@ struct Chromosome
 	float fitness;
 };
 
+// Genetics class, Requires Initialise to be called before use. Initialise will allocate memory and set internal flags. Class is completely thread-safe. 
 template <typename T>
 class Genetics
 {

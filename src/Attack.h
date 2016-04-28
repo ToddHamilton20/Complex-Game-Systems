@@ -1,7 +1,7 @@
 // Author:					Todd Hamilton
 // Last Change:				28/04/16
 // Description of Change:	Commented
-// Description of File:		Attack derived class. Used for any temporary projectile or indicator.
+// Description of File:		Attack class
 
 #pragma once
 
@@ -10,6 +10,7 @@
 class GameObjects;
 class Zombie;
 
+// Used for any gameobject with a constant velocity and despawn time.
 class Attack : public GameObject
 {
 public:
@@ -19,5 +20,7 @@ public:
 	float timer;
 	bool alive;
 	glm::vec2 velocity;
+
+	// Used to apply damage to owners' tally
 	Zombie* owner;
 };

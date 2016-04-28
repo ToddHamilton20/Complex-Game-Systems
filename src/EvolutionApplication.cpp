@@ -15,8 +15,7 @@
 #include "imgui_impl_glfw_gl3.h"
 #include "Defines.h"
 
-// Comment
-bool EvolutionApplication::startup()
+bool EvolutionApplication::Startup()
 {
 	Window::GetInstance().InitialiseWindow("Todd Hamilton - Evolution Application", SCREEN_X, SCREEN_Y);
 
@@ -90,7 +89,7 @@ bool EvolutionApplication::startup()
 	return true;
 }
 
-void EvolutionApplication::shutdown()
+void EvolutionApplication::Shutdown()
 {
 	ImGui_ImplGlfwGL3_Shutdown();
 
@@ -121,7 +120,7 @@ void EvolutionApplication::shutdown()
 	delete miniMapCamera;
 }
 
-bool EvolutionApplication::update(float a_deltaTime)
+bool EvolutionApplication::Update(float a_deltaTime)
 {
 	if (Window::GetInstance().ShouldClose())
 		return false;
@@ -232,7 +231,7 @@ bool EvolutionApplication::update(float a_deltaTime)
 	return true;
 }
 
-void EvolutionApplication::draw()
+void EvolutionApplication::Draw()
 {
 	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 
@@ -287,7 +286,7 @@ void EvolutionApplication::draw()
 
 	glDisable(GL_BLEND);
 
-	Gizmos::draw(camera->getProjectionView());
+	Gizmos::draw(camera->GetProjectionView());
 
 	ImGui::Render();
 }

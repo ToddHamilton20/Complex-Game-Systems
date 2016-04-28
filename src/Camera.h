@@ -1,13 +1,14 @@
 // Author:					Todd Hamilton
 // Last Change:				28/04/16
 // Description of Change:	Commented
-// Description of File:		Orthographic Camera class
+// Description of File:		Camera class
 
 #pragma once
 
 #include "glm/glm.hpp"
 #include "glm/ext.hpp"
 
+// Orthographic camera class
 class Camera
 {
 public:

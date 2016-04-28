@@ -1,13 +1,14 @@
 // Author:					Todd Hamilton
 // Last Change:				28/04/16
 // Description of Change:	Commented
-// Description of File:		Window singleton class
+// Description of File:		Window class
 
 #pragma once
 
 #include "gl_core_4_4.h"
 #include "GLFW\glfw3.h"
 
+// Window singleton class, Initialise must be called before use. Destroy must be called after use.
 class Window
 {
 public:

@@ -5,16 +5,16 @@
 #include <iostream>
 #include "Window.h"
 
-void BaseApplication::run() {
+void BaseApplication::Run() {
 
 	double prevTime = glfwGetTime();
 	double currTime = 0;
 
 	while (currTime = glfwGetTime(),
-		update((float)(currTime - prevTime))) {
+		Update((float)(currTime - prevTime))) {
 
 		glfwPollEvents();
-		draw();
+		Draw();
 
 		Window::GetInstance().SwapBuffers();
 

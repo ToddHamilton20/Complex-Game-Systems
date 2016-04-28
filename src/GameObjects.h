@@ -1,7 +1,7 @@
 // Author:					Todd Hamilton
 // Last Change:				28/04/16
 // Description of Change:	Commented
-// Description of File:		GameObjects struct, Once instance stores all game objects.
+// Description of File:		GameObjects struct
 
 #pragma once
 
@@ -14,6 +14,7 @@ class Player;
 #include "Zombie.h"
 #include "ArenaTile.h"
 
+// GameObjects struct, Once instance stores all game objects.
 struct GameObjects
 {
 	Player* player;

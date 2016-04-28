@@ -16,17 +16,18 @@
 
 class Camera;
 
+// Main game class
 class EvolutionApplication : public BaseApplication
 {
 public:
 	EvolutionApplication() {}
 	virtual ~EvolutionApplication() {}
 
-	virtual bool startup();
-	virtual void shutdown();
+	virtual bool Startup();
+	virtual void Shutdown();
 
-	virtual bool update(float a_deltaTime);
-	virtual void draw();
+	virtual bool Update(float a_deltaTime);
+	virtual void Draw();
 
 private:
 	unsigned int shader;

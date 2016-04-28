@@ -8,6 +8,7 @@
 #include "Genetics.h"
 #include "Defines.h"
 
+// Zombie bit bools
 enum
 {
 	ZOMBIE_BIT_TRAIT_FIRETRAIL = 1,
@@ -23,6 +24,7 @@ enum
 
 class Zombie;
 
+// ZombieGenetics class
 class ZombieGenetics : public Genetics<Zombie*>
 {
 public:

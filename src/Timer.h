@@ -5,6 +5,7 @@
 
 #pragma once
 
+// Counts down from specified time in seconds.
 class Cooldown
 {
 public:
@@ -17,6 +18,7 @@ private:
 	float timeLeft;
 };
 
+// Counts up from zero in seconds.
 class Timer
 {
 public:

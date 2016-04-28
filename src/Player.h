@@ -13,6 +13,7 @@
 class GameObjects;
 class Camera;
 
+// Player class, Init must be called before use
 class Player : public GameObject
 {
 public:
@@ -28,6 +29,7 @@ public:
 	bool alive;
 
 	HealthBar healthBar;
+	// Screen camera. Needed for determining direction to mouse from player when attacking.
 	Camera* camera;
 	Sprite swipeSprite;
 

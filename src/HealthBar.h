@@ -7,6 +7,7 @@
 
 #include "GameObject.h"
 
+// HealthBar class, Init must be called before use
 class HealthBar : public GameObject
 {
 public:

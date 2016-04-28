@@ -7,6 +7,7 @@
 
 #include <vector>
 
+// Static Shader class, creates and returns shader handle, Destroy shader manually after use!
 class Shader
 {
 public:

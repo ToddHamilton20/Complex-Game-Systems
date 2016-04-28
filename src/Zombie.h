@@ -14,6 +14,7 @@
 class Player;
 class GameObjects;
 
+// Zombie class, Atomics are used as the genetic algorithm thread will refernece this class.
 class Zombie : public GameObject
 {
 public:

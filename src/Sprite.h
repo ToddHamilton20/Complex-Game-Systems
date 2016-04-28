@@ -10,6 +10,7 @@
 
 class Camera;
 
+// Sprite class, Init must be called before use, Destroy must be called after use. Copying class will create a shallow copy.
 class Sprite
 {
 public:

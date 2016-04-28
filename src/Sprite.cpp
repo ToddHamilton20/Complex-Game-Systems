@@ -150,7 +150,7 @@ void Sprite::DrawAt(Camera* a_camera, int a_shader, const glm::vec2& a_position,
 	glm::mat4 model = glm::translate(glm::vec3(a_position, 0)) * glm::rotate(a_rotation * glm::pi<float>() / 180, glm::vec3(0, 0, 1)) * glm::scale(glm::vec3(a_size, 1));
 	glUniformMatrix4fv(glGetUniformLocation(a_shader, "model"), 1, GL_FALSE, glm::value_ptr(model));
 
-	glUniformMatrix4fv(glGetUniformLocation(a_shader, "projectionView"), 1, GL_FALSE, glm::value_ptr(a_camera->getProjectionView()));
+	glUniformMatrix4fv(glGetUniformLocation(a_shader, "projectionView"), 1, GL_FALSE, glm::value_ptr(a_camera->GetProjectionView()));
 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, textureHandle);
@@ -176,7 +176,7 @@ void Sprite::DrawAtScreen(int a_shader, const glm::vec2& a_position, const glm::
 	glm::mat4 model = glm::translate(glm::vec3(a_position, 0)) * glm::rotate(a_rotation * glm::pi<float>() / 180, glm::vec3(0, 0, 1)) * glm::scale(glm::vec3(a_size, 1));
 	glUniformMatrix4fv(glGetUniformLocation(a_shader, "model"), 1, GL_FALSE, glm::value_ptr(model));
 
-	glUniformMatrix4fv(glGetUniformLocation(a_shader, "projectionView"), 1, GL_FALSE, &camera->getProjectionView()[0][0]);
+	glUniformMatrix4fv(glGetUniformLocation(a_shader, "projectionView"), 1, GL_FALSE, &camera->GetProjectionView()[0][0]);
 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, textureHandle);

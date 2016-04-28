@@ -1,21 +1,22 @@
 // Author:					Todd Hamilton
 // Last Change:				28/04/16
 // Description of Change:	Commented
-// Description of File:		CaseApplication class. All applications should derive from this.
+// Description of File:		BaseApplication class. 
 
 #pragma once
 
+// All applications should derive from this.
 class BaseApplication {
 public:
 
 	BaseApplication() {}
 	virtual ~BaseApplication() {}
 
-	void run();
+	void Run();
 	
-	virtual bool startup() = 0;
-	virtual void shutdown() = 0;
+	virtual bool Startup() = 0;
+	virtual void Shutdown() = 0;
 
-	virtual bool update(float deltaTime) = 0;
-	virtual void draw() = 0;
+	virtual bool Update(float deltaTime) = 0;
+	virtual void Draw() = 0;
 };

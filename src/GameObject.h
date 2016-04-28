@@ -1,7 +1,7 @@
 // Author:					Todd Hamilton
 // Last Change:				28/04/16
 // Description of Change:	Commented
-// Description of File:		Base GameObject class, all GameObjects should derive from this
+// Description of File:		GameObject class
 
 #pragma once
 
@@ -10,6 +10,7 @@
 
 class GameObjects;
 
+// Pure virtual base GameObject class, all GameObjects should derive from this
 class GameObject
 {
 public:
@@ -19,9 +20,13 @@ public:
 	virtual void Draw(Camera* a_camera, int a_shader) const;
 	const glm::vec2 GetScreenPosition(Camera* a_camera) const;
 
+	// Position in pixels - Game Space
 	glm::vec2 position;
+	// Size in pixels
 	glm::vec2 size;
+	// Rotation in degrees
 	float rotation;
 	Sprite sprite;
+	// Normalised transparency
 	float transparency;
 };

@@ -12,7 +12,7 @@ const glm::vec2 GameObject::GetScreenPosition(Camera* a_camera) const
 {
 	float width, height;
 	Window::GetInstance().GetSize(&width, &height);
-	glm::vec4 clipSpace = a_camera->getProjectionView() * glm::vec4(position, 0, 1);
+	glm::vec4 clipSpace = a_camera->GetProjectionView() * glm::vec4(position, 0, 1);
 	glm::vec2 normalizedScreen = clipSpace.w != 0 ? glm::vec2(clipSpace.x, clipSpace.y) / clipSpace.w : glm::vec2(-1, -1);
 	glm::vec2 windowSpace = ((normalizedScreen + glm::vec2(1, 1)) / 2.0f) * glm::vec2(width, height);
 

@@ -6,9 +6,9 @@ int main()
 {
 	srand((unsigned int)time(0));
 	EvolutionApplication* app = new EvolutionApplication();
-	if (app->startup())
-		app->run();
-	app->shutdown();
+	if (app->Startup())
+		app->Run();
+	app->Shutdown();
 
 	return 0;
 }
