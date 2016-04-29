@@ -31,9 +31,12 @@ public:
 
 private:
 	unsigned int shader;
+	// Camera covering 1280x720 around the player
 	Camera* camera;
+	// Camera covering the 6000x6000 arena around it's centre.
 	Camera* miniMapCamera;
 
+	// Genetic algorithm
 	ZombieGenetics zombieGenetics;
 
 	Sprite grassSprite, dirtSprite, zombieSprite, swipeSprite, fireSprite, projectileSprite, healSprite;
@@ -46,6 +49,7 @@ private:
 	void StartWave();
 
 	template<typename T>
+	// Removes an item* by value from a vector and DELETES the item*.
 	void DeleteGameObject(std::vector<T*>& a_vector, T* a_item)
 	{
 		a_vector.erase(std::remove(a_vector.begin(), a_vector.end(), a_item), a_vector.end());
@@ -53,6 +57,7 @@ private:
 	}
 
 	template<typename T>
+	// Removes all items* from a vector and DELETES all items*.
 	void DeleteVector(std::vector<T*>& a_vector)
 	{
 		for (int i = a_vector.size() - 1; i >= 0; i--)

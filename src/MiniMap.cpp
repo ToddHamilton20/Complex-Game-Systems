@@ -2,6 +2,7 @@
 
 #include "Camera.h"
 #include "gl_core_4_4.h"
+#include "Defines.h"
 
 void MiniMap::Init(glm::vec2 a_dimensions, glm::vec2 a_size, glm::vec2 a_position)
 {
@@ -63,10 +64,10 @@ void MiniMap::Draw(const GameObjects& a_gameObjects, Camera* a_camera, unsigned 
 	a_gameObjects.player->Draw(a_camera, a_worldShader);
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-	glViewport(0, 0, 1280, 720);
+	glViewport(0, 0, SCREEN_X, SCREEN_Y);
 
 	// Render darken
-	clearSprite.DrawAtScreen(a_miniMapShader, glm::vec2(640, 360), glm::vec2(1280, 720));
+	clearSprite.DrawAtScreen(a_miniMapShader, glm::vec2(SCREEN_X / 2.0f, SCREEN_Y / 2.0f), glm::vec2(SCREEN_X, SCREEN_Y));
 
 	// Render minimap
 	glUseProgram(a_miniMapShader);
@@ -74,4 +75,11 @@ void MiniMap::Draw(const GameObjects& a_gameObjects, Camera* a_camera, unsigned 
 	miniMapSprite.textureHandle = fboTexture;
 
 	miniMapSprite.DrawAtScreen(a_miniMapShader, position, size);
+}
+
+void MiniMap::Destroy()
+{
+	clearSprite.Destroy();
+	miniMapSprite.Destroy();
+	glDeleteFramebuffers(1, &fbo);
 }
