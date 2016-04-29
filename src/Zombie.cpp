@@ -165,11 +165,11 @@ void Zombie::SpawnProjectile(GameObjects* a_gameObjects, float a_deltaTime)
 {
 	hitTimer.Start(1.5f);
 
-	Attack* projectile = new Attack(10.0f);
+	glm::vec2 velocity = glm::normalize(a_gameObjects->player->position - position) * 500.0f;
+	Attack* projectile = new Attack(10.0f, velocity);
 	projectile->position = position;
 	projectile->size = glm::vec2(75, 75);
 	projectile->sprite = projectileSprite;
-	projectile->velocity = glm::normalize(a_gameObjects->player->position - position) * 500.0f;
 	projectile->owner = this;
 
 	a_gameObjects->projectiles.push_back(projectile);
@@ -198,11 +198,10 @@ void Zombie::Heal(GameObjects* a_gameObjects, float a_deltaTime)
 	health += maxHealth / 3.0f;
 	healingTimer.Start(5.0f);
 
-	Attack* heal = new Attack(2.0f);
+	Attack* heal = new Attack(2.0f, glm::vec2(0.0f, -15.0f));
 	heal->position = position;
 	heal->size = glm::vec2(75, 75);
 	heal->sprite = healSprite;
-	heal->velocity = glm::vec2(0.0f, -15.0f);
 
 	a_gameObjects->heals.push_back(heal);
 }

@@ -43,6 +43,8 @@ bool EvolutionApplication::Startup()
 	healSprite.Init("Heal.png");
 	healthBarSprite.Init("HealthBar.png");
 	healthBarBackSprite.Init("HealthBarBack.png");
+	hitMarkerSprite.Init("HitMarker.png");
+	fireHitMarkerSprite.Init("FireHitMarker.png");
 
 	// Create and init player
 	gameObjects.player = new Player();
@@ -53,6 +55,7 @@ bool EvolutionApplication::Startup()
 	gameObjects.player->healthBar.backSprite = healthBarBackSprite;
 	gameObjects.player->camera = camera;
 	gameObjects.player->swipeSprite = swipeSprite;
+	gameObjects.player->hitMarkerSprite = hitMarkerSprite;
 	
 	// Structure of zombie vector:
 	// Index 0 to POPULATION_SIZE - 1:
@@ -128,6 +131,8 @@ void EvolutionApplication::Shutdown()
 	gameObjects.player->sprite.Destroy();
 	healthBarSprite.Destroy();
 	healthBarBackSprite.Destroy();
+	hitMarkerSprite.Destroy();
+	fireHitMarkerSprite.Destroy();
 
 	miniMap.Destroy();
 	Gizmos::destroy();
@@ -167,6 +172,8 @@ bool EvolutionApplication::Update(float a_deltaTime)
 	{
 		if (gameObjects.zombies[i]->active && gameObjects.zombies[i]->alive)
 			gameObjects.zombies[i]->Update(&gameObjects, a_deltaTime);
+
+		gameObjects.zombies[i]->specialTraits = ZOMBIE_BIT_TRAIT_FIRETRAIL;
 	}
 	
 	// Update fires
@@ -177,8 +184,14 @@ bool EvolutionApplication::Update(float a_deltaTime)
 		// If player touches fire, damage the player. Fire damage type must be used so the player isn't damaged by multiple fires at the same time.
 		if (glm::length(gameObjects.player->position - gameObjects.fires[i]->position) < gameObjects.player->size.x / 2.0f + gameObjects.fires[i]->size.x / 2.0f)
 		{
-			gameObjects.player->DamagePlayer(FIRE_DAMAGE, 1.0f);
-			gameObjects.fires[i]->owner->damageToPlayer = gameObjects.fires[i]->owner->damageToPlayer + 1.0f;
+			gameObjects.player->DamagePlayer(FIRE_DAMAGE, 5.0f);
+			gameObjects.fires[i]->owner->damageToPlayer = gameObjects.fires[i]->owner->damageToPlayer + 5.0f;
+
+			Attack* attack = new Attack(0.5f, glm::vec2(0, 0), true);
+			attack->position = glm::vec2(SCREEN_X / 2.0f, SCREEN_Y / 2.0f);
+			attack->size = glm::vec2(SCREEN_X, SCREEN_Y);
+			attack->sprite = fireHitMarkerSprite;
+			gameObjects.hitMarkers.push_back(attack);
 		}
 	
 		if (!gameObjects.fires[i]->alive)
@@ -221,6 +234,15 @@ bool EvolutionApplication::Update(float a_deltaTime)
 		// If hit player or timed out, delete the projectile.
 		if (!gameObjects.projectiles[i]->alive || dealtDamage)
 			DeleteGameObject(gameObjects.projectiles, gameObjects.projectiles[i]);
+	}
+
+	// Update hit markers
+	for (int i = gameObjects.hitMarkers.size() - 1; i >= 0; i--)
+	{
+		gameObjects.hitMarkers[i]->Update(&gameObjects, a_deltaTime);
+
+		if (!gameObjects.hitMarkers[i]->alive)
+			DeleteGameObject(gameObjects.hitMarkers, gameObjects.hitMarkers[i]);
 	}
 
 	// Delete any SPLITTER zombies that may still be alive.
@@ -324,6 +346,15 @@ void EvolutionApplication::Draw()
 	// Draw "mini"map if tab is pressed.
 	if (Window::GetInstance().GetKey(GLFW_KEY_TAB))
 		miniMap.Draw(gameObjects, miniMapCamera, shader, shader);
+
+	// Draw hit markers
+	for (int i = 0; i < gameObjects.hitMarkers.size(); i++)
+	{
+		gameObjects.hitMarkers[i]->sprite.DrawAtScreen(shader,
+			gameObjects.hitMarkers[i]->position,
+			gameObjects.hitMarkers[i]->size, 0.0f,
+			gameObjects.hitMarkers[i]->transparency);
+	}
 
 	glDisable(GL_BLEND);
 

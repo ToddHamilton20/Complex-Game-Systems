@@ -80,6 +80,17 @@ void Player::Update(GameObjects* a_gameObjects, float a_deltaTime)
 			a_gameObjects->attacks.push_back(attack);
 		}
 
+		if (hurt)
+		{
+			Attack* attack = new Attack(0.5f, glm::vec2(0, 0), true);
+			attack->position = glm::vec2(SCREEN_X / 2.0f, SCREEN_Y / 2.0f);
+			attack->size = glm::vec2(1280, 720);
+			attack->sprite = hitMarkerSprite;
+			a_gameObjects->hitMarkers.push_back(attack);
+
+			hurt = false;
+		}
+
 		if (health <= 0.0f)
 			alive = false;
 
@@ -115,7 +126,10 @@ void Player::DamagePlayer(DamageType a_damageType, float a_damage)
 		}
 	}
 	else
+	{
 		health -= a_damage;
+		hurt = true;
+	}
 }
 
 void Player::KnockBack(glm::vec2 a_direction)

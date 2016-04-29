@@ -17,7 +17,7 @@ class Camera;
 class Player : public GameObject
 {
 public:
-	Player() {}
+	Player() : alive(true), hurt(false) {}
 	void Init(float a_speed, float a_strength, float a_health, float a_maxHealth);
 	void Update(GameObjects* a_gameObjects, float a_deltaTime);
 	void Draw(Camera* a_camera, int a_shader) const;
@@ -28,10 +28,13 @@ public:
 	float speed, strength;
 	bool alive;
 
+	// True if the player got damaged and hit marker isn't spawned
+	bool hurt;
+
 	HealthBar healthBar;
 	// Screen camera. Needed for determining direction to mouse from player when attacking.
 	Camera* camera;
-	Sprite swipeSprite;
+	Sprite swipeSprite, hitMarkerSprite;
 
 private:
 	float health, maxHealth;

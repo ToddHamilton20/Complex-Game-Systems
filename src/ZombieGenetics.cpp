@@ -194,14 +194,14 @@ void ZombieGenetics::Mutate(std::mt19937& a_random)
 			{
 				switch (j)
 				{
-				case 0: childGenes->maxHealthRange.x += 5;	break;
+				case 0: childGenes->maxHealthRange.x += 3;	break;
 				case 1: childGenes->speedRange.x += 10;		break;
 				case 2: childGenes->strengthRange.x += 5;	break;
-				case 3: childGenes->scaleRange.x += 0.25f * posNeg;	break;
-				case 4: childGenes->maxHealthRange.y += 5;	break;
+				case 3: childGenes->scaleRange.x += 0.05f * posNeg;	break;
+				case 4: childGenes->maxHealthRange.y += 3;	break;
 				case 5: childGenes->speedRange.y += 10;		break;
 				case 6: childGenes->strengthRange.y += 5;	break;
-				case 7: childGenes->scaleRange.y += 0.25f * posNeg;	break;
+				case 7: childGenes->scaleRange.y += 0.05f * posNeg;	break;
 				}
 			}
 		}

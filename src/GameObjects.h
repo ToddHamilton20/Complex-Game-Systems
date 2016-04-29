@@ -23,5 +23,6 @@ struct GameObjects
 	std::vector<Attack*> fires;
 	std::vector<Attack*> projectiles;
 	std::vector<Attack*> heals;
+	std::vector<Attack*> hitMarkers;
 	std::vector<ArenaTile*> arenaTiles;
 };

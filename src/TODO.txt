@@ -1,7 +1,6 @@
 IMPORTANT:
-- Fitness Function tweaking
 - Simple menu
-- Hit marker
+- Sprite loader
 
 NOT IMPORTANT:
 - Transparent fade out

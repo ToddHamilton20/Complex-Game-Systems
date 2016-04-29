@@ -11,5 +11,8 @@ void Attack::Update(GameObjects* a_gameObjects, float a_deltaTime)
 	if (timer == 0 && alive)
 		alive = false;
 
+	if (fade)
+		transparency = timer / maxTimer;
+
 	position += velocity * a_deltaTime;
 }
