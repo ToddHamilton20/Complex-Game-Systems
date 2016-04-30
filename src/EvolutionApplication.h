@@ -7,7 +7,7 @@
 
 #include "BaseApplication.h"
 
-#include "Sprites.h"
+#include "Sprite.h"
 #include "Gizmos.h"
 #include "ZombieGenetics.h"
 #include "GameObjects.h"

@@ -6,7 +6,6 @@
 #pragma once
 
 #include "GameObject.h"
-#include <string>
 
 class GameObjects;
 class Zombie;
@@ -15,8 +14,8 @@ class Zombie;
 class Attack : public GameObject
 {
 public:
-	Attack(const char* a_sprite, float a_timer, glm::vec2 a_velocity = glm::vec2(0, 0), bool a_fade = false) :
-		alive(true), timer(a_timer), maxTimer(a_timer), velocity(a_velocity), fade(a_fade), owner(nullptr), sprite(a_sprite)
+	Attack(float a_timer, glm::vec2 a_velocity = glm::vec2(0, 0), bool a_fade = false) :
+		alive(true), timer(a_timer), maxTimer(a_timer), velocity(a_velocity), fade(a_fade), owner(nullptr)
 	{}
 
 	virtual void Update(GameObjects* a_gameObjects, float a_deltaTime);
@@ -30,6 +29,4 @@ private:
 	float timer, maxTimer;
 	glm::vec2 velocity;
 	bool fade;
-	std::string sprite;
 };
-

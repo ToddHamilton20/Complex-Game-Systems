@@ -7,7 +7,7 @@
 
 #include "glm\glm.hpp"
 #include "GameObjects.h"
-#include "Sprites.h"
+#include "Sprite.h"
 
 class Camera;
 
