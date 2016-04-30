@@ -23,5 +23,6 @@ const glm::vec2 GameObject::GetScreenPosition(Camera* a_camera) const
 
 void GameObject::Draw(Camera* a_camera, int a_shader) const
 {
-	sprite.DrawAt(a_camera, a_shader, position, size, rotation, transparency);
+	Sprites& instance = Sprites::GetInstance();
+	instance(sprite.c_str()).DrawAt(a_camera, a_shader, position, size, rotation, transparency);
 }

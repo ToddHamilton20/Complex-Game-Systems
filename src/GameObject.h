@@ -6,7 +6,7 @@
 #pragma once
 
 #include "glm/glm.hpp"
-#include "Sprite.h"
+#include "Sprites.h"
 
 class GameObjects;
 
@@ -26,7 +26,8 @@ public:
 	glm::vec2 size;
 	// Rotation in degrees
 	float rotation;
-	Sprite sprite;
 	// Normalised transparency
 	float transparency;
+	// Sprite name
+	std::string sprite;
 };

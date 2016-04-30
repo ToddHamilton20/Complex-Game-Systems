@@ -34,24 +34,24 @@ bool EvolutionApplication::Startup()
 	miniMap.Init(glm::vec2(ARENA_SIZE + TILE_SIZE * 2.0f, ARENA_SIZE + TILE_SIZE * 2.0f), glm::vec2(SCREEN_Y, SCREEN_Y), glm::vec2(SCREEN_X / 2.0f, SCREEN_Y / 2.0f));
 
 	// Init textures
-	grassSprite.Init("Grass.png");
-	dirtSprite.Init("Dirt.png");
-	zombieSprite.Init("Zombie.png");
-	swipeSprite.Init("Swipe.png");
-	fireSprite.Init("Fire.png");
-	projectileSprite.Init("Projectile.png");
-	healSprite.Init("Heal.png");
-	healthBarSprite.Init("HealthBar.png");
-	healthBarBackSprite.Init("HealthBarBack.png");
-	hitMarkerSprite.Init("HitMarker.png");
-	fireHitMarkerSprite.Init("FireHitMarker.png");
+	Sprites& instance = Sprites::GetInstance();
+	instance.InitSprite("Grass", "Grass.png");
+	instance.InitSprite("Dirt", "Dirt.png");
+	instance.InitSprite("Player", "Player.png");
+	instance.InitSprite("Zombie", "Zombie.png");
+	instance.InitSprite("Swipe", "Swipe.png");
+	instance.InitSprite("Fire", "Fire.png");
+	instance.InitSprite("Projectile", "Projectile.png");
+	instance.InitSprite("Heal", "Heal.png");
+	instance.InitSprite("HealthBar", "HealthBar.png");
+	instance.InitSprite("HealthBarBack", "HealthBarBack.png");
+	instance.InitSprite("HitMarker", "HitMarker.png");
+	instance.InitSprite("FireHitMarker", "FireHitMarker.png");
 
 	// Create and init player
 	gameObjects.player = new Player();
 	gameObjects.player->position = glm::vec2(0, 0);
-	gameObjects.player->sprite.Init("Player.png");
 	gameObjects.player->size = glm::vec2(125, 125);
-	gameObjects.player->healthBar.sprite = healthBarSprite;
 	gameObjects.player->healthBar.backSprite = healthBarBackSprite;
 	gameObjects.player->camera = camera;
 	gameObjects.player->swipeSprite = swipeSprite;
@@ -69,12 +69,9 @@ bool EvolutionApplication::Startup()
 	for (int i = 0; i < POPULATION_SIZE + CHILD_COUNT; i++)
 	{
 		gameObjects.zombies.push_back(new Zombie());
-		gameObjects.zombies[i]->sprite = zombieSprite;
 		gameObjects.zombies[i]->projectileSprite = projectileSprite;
 		gameObjects.zombies[i]->fireSprite = fireSprite;
 		gameObjects.zombies[i]->healSprite = healSprite;
-		gameObjects.zombies[i]->healthBar.sprite = healthBarSprite;
-		gameObjects.zombies[i]->healthBar.backSprite = healthBarBackSprite;
 
 		// Add the zombies to the genetic algorithm
 		zombieGenetics.zombies.push_back(gameObjects.zombies[i]);
@@ -121,18 +118,7 @@ void EvolutionApplication::Shutdown()
 
 	delete gameObjects.player;
 
-	grassSprite.Destroy();
-	dirtSprite.Destroy();
-	zombieSprite.Destroy();
-	fireSprite.Destroy();
-	projectileSprite.Destroy();
-	swipeSprite.Destroy();
-	healSprite.Destroy();
-	gameObjects.player->sprite.Destroy();
-	healthBarSprite.Destroy();
-	healthBarBackSprite.Destroy();
-	hitMarkerSprite.Destroy();
-	fireHitMarkerSprite.Destroy();
+	Sprites::GetInstance().DestroySprites();
 
 	miniMap.Destroy();
 	Gizmos::destroy();
@@ -187,10 +173,9 @@ bool EvolutionApplication::Update(float a_deltaTime)
 			gameObjects.player->DamagePlayer(FIRE_DAMAGE, 5.0f);
 			gameObjects.fires[i]->owner->damageToPlayer = gameObjects.fires[i]->owner->damageToPlayer + 5.0f;
 
-			Attack* attack = new Attack(0.5f, glm::vec2(0, 0), true);
+			Attack* attack = new Attack("FireHitMarker", 0.5f, glm::vec2(0, 0), true);
 			attack->position = glm::vec2(SCREEN_X / 2.0f, SCREEN_Y / 2.0f);
 			attack->size = glm::vec2(SCREEN_X, SCREEN_Y);
-			attack->sprite = fireHitMarkerSprite;
 			gameObjects.hitMarkers.push_back(attack);
 		}
 	

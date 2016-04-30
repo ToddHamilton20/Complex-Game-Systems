@@ -62,8 +62,7 @@ void Player::Update(GameObjects* a_gameObjects, float a_deltaTime)
 			Window::GetInstance().GetMousePos(&mousePos.x, &mousePos.y);
 			glm::vec2 direction = glm::normalize(mousePos - GetScreenPosition(camera));
 
-			Attack* attack = new Attack(0.1f);
-			attack->sprite = swipeSprite;
+			Attack* attack = new Attack("SwipeSprite", 0.1f);
 			attack->position = position + direction * (size / 2.0f + 75.0f);
 			attack->size = glm::vec2(150.0f, 150.0f);
 			attack->rotation = glm::atan(direction.x, -direction.y) * 180 / glm::pi<float>();
@@ -82,10 +81,9 @@ void Player::Update(GameObjects* a_gameObjects, float a_deltaTime)
 
 		if (hurt)
 		{
-			Attack* attack = new Attack(0.5f, glm::vec2(0, 0), true);
+			Attack* attack = new Attack("HitMarker", 0.5f, glm::vec2(0, 0), true);
 			attack->position = glm::vec2(SCREEN_X / 2.0f, SCREEN_Y / 2.0f);
-			attack->size = glm::vec2(1280, 720);
-			attack->sprite = hitMarkerSprite;
+			attack->size = glm::vec2(SCREEN_X, SCREEN_Y);
 			a_gameObjects->hitMarkers.push_back(attack);
 
 			hurt = false;

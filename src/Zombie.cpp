@@ -166,10 +166,9 @@ void Zombie::SpawnProjectile(GameObjects* a_gameObjects, float a_deltaTime)
 	hitTimer.Start(1.5f);
 
 	glm::vec2 velocity = glm::normalize(a_gameObjects->player->position - position) * 500.0f;
-	Attack* projectile = new Attack(10.0f, velocity);
+	Attack* projectile = new Attack("Projectile", 10.0f, velocity);
 	projectile->position = position;
 	projectile->size = glm::vec2(75, 75);
-	projectile->sprite = projectileSprite;
 	projectile->owner = this;
 
 	a_gameObjects->projectiles.push_back(projectile);
@@ -179,10 +178,9 @@ void Zombie::SpawnFire(GameObjects* a_gameObjects, float a_deltaTime)
 {
 	lastFire = position;
 
-	Attack* fire = new Attack(20.0f);
+	Attack* fire = new Attack("Fire", 20.0f);
 	fire->position = position;
 	fire->size = glm::vec2(75, 75);
-	fire->sprite = fireSprite;
 	fire->owner = this;
 
 	a_gameObjects->fires.push_back(fire);

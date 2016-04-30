@@ -32,9 +32,9 @@ void MiniMap::Init(glm::vec2 a_dimensions, glm::vec2 a_size, glm::vec2 a_positio
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-	miniMapSprite.Init(true);
-
-	clearSprite.Init("Darken.png");
+	Sprites& instance = Sprites::GetInstance();
+	instance.InitSprite("MiniMap", fboTexture);
+	instance.InitSprite("Darken", "Darken.png");
 }
 
 void MiniMap::Draw(const GameObjects& a_gameObjects, Camera* a_camera, unsigned int a_worldShader, unsigned int a_miniMapShader)
@@ -79,7 +79,5 @@ void MiniMap::Draw(const GameObjects& a_gameObjects, Camera* a_camera, unsigned 
 
 void MiniMap::Destroy()
 {
-	clearSprite.Destroy();
-	miniMapSprite.Destroy();
 	glDeleteFramebuffers(1, &fbo);
 }

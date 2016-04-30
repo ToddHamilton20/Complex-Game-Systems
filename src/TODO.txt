@@ -1,6 +1,7 @@
 IMPORTANT:
 - Simple menu
 - Sprite loader
+- Remove last change comment
 
 NOT IMPORTANT:
 - Transparent fade out
