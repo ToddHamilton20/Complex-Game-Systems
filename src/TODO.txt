@@ -1,6 +1,5 @@
 IMPORTANT:
 - Simple menu
-- Sprite loader
 
 NOT IMPORTANT:
 - Transparent fade out

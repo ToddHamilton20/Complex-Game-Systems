@@ -1,6 +1,5 @@
 // Author:					Todd Hamilton
 // Last Change:				28/04/16
-// Description of Change:	Commented
 // Description of File:		GameObjects struct
 
 #pragma once

@@ -1,6 +1,5 @@
 // Author:					Conan Burke (?)
 // Last Change:				-
-// Description of Change:	-
 // Description of File:		-
 
 #pragma once

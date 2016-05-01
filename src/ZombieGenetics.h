@@ -1,6 +1,5 @@
 // Author:					Todd Hamilton
 // Last Change:				28/04/16
-// Description of Change:	Commented
 // Description of File:		ZombieGenetics class and ZOMBIE_BIT_TRAIT_* enum
 
 #pragma once
