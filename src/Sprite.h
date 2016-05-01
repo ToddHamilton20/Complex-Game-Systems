@@ -14,12 +14,13 @@ class Camera;
 class Sprite
 {
 public:
-	Sprite() : initialised(false) {}
+	Sprite();
 
-	void Init(bool a_yflip = false);
-	void Init(const char* a_filePath, bool a_yflip = false);
-	void Init(unsigned int a_texture, bool a_yflip = false);
-	void Destroy();
+	void Load(bool a_yflip = false);
+	void Load(const char* a_filePath, bool a_yflip = false);
+	void Load(unsigned int a_texture, bool a_yflip = false);
+	void DestroySprite();
+	static void DestroyMesh();
 
 	void DrawAt(Camera* a_camera, int a_shader, const glm::vec2& a_position, const glm::vec2& a_size, float a_rotation = 0.0f, float a_alpha = 1.0f) const;
 	void DrawAtScreen(int a_shader, const glm::vec2& a_position, const glm::vec2& a_size, float a_rotation = 0.0f, float a_alpha = 1.0f) const;
@@ -27,7 +28,8 @@ public:
 	unsigned int textureHandle;
 
 private:
-	bool initialised;
+	bool flipped;
 
-	unsigned int vbo, ibo, vao;
+	static bool initialised;
+	static unsigned int vbo, ibo, vao, vboFlipped, vaoFlipped;
 };

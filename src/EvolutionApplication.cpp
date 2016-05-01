@@ -17,8 +17,6 @@
 
 bool EvolutionApplication::Startup()
 {
-	Window::GetInstance().InitialiseWindow("Todd Hamilton - Evolution Application", SCREEN_X, SCREEN_Y);
-
 	GLFWwindow* window = glfwGetCurrentContext();
 	ImGui_ImplGlfwGL3_Init(window, true);
 	ImGuiIO& io = ImGui::GetIO();
@@ -34,22 +32,23 @@ bool EvolutionApplication::Startup()
 	miniMap.Init(glm::vec2(ARENA_SIZE + TILE_SIZE * 2.0f, ARENA_SIZE + TILE_SIZE * 2.0f), glm::vec2(SCREEN_Y, SCREEN_Y), glm::vec2(SCREEN_X / 2.0f, SCREEN_Y / 2.0f));
 
 	// Init textures
-	grassSprite.Init("Grass.png");
-	dirtSprite.Init("Dirt.png");
-	zombieSprite.Init("Zombie.png");
-	swipeSprite.Init("Swipe.png");
-	fireSprite.Init("Fire.png");
-	projectileSprite.Init("Projectile.png");
-	healSprite.Init("Heal.png");
-	healthBarSprite.Init("HealthBar.png");
-	healthBarBackSprite.Init("HealthBarBack.png");
-	hitMarkerSprite.Init("HitMarker.png");
-	fireHitMarkerSprite.Init("FireHitMarker.png");
+	grassSprite.Load("Grass.png");
+	dirtSprite.Load("Dirt.png");
+	zombieSprite.Load("Zombie.png");
+	swipeSprite.Load("Swipe.png");
+	fireSprite.Load("Fire.png");
+	projectileSprite.Load("Projectile.png");
+	healSprite.Load("Heal.png");
+	healthBarSprite.Load("HealthBar.png");
+	healthBarBackSprite.Load("HealthBarBack.png");
+	hitMarkerSprite.Load("HitMarker.png");
+	fireHitMarkerSprite.Load("FireHitMarker.png");
+	playerSprite.Load("Player.png");
 
 	// Create and init player
 	gameObjects.player = new Player();
 	gameObjects.player->position = glm::vec2(0, 0);
-	gameObjects.player->sprite.Init("Player.png");
+	gameObjects.player->sprite = playerSprite;
 	gameObjects.player->size = glm::vec2(125, 125);
 	gameObjects.player->healthBar.sprite = healthBarSprite;
 	gameObjects.player->healthBar.backSprite = healthBarBackSprite;
@@ -121,21 +120,23 @@ void EvolutionApplication::Shutdown()
 
 	delete gameObjects.player;
 
-	grassSprite.Destroy();
-	dirtSprite.Destroy();
-	zombieSprite.Destroy();
-	fireSprite.Destroy();
-	projectileSprite.Destroy();
-	swipeSprite.Destroy();
-	healSprite.Destroy();
-	gameObjects.player->sprite.Destroy();
-	healthBarSprite.Destroy();
-	healthBarBackSprite.Destroy();
-	hitMarkerSprite.Destroy();
-	fireHitMarkerSprite.Destroy();
+	grassSprite.DestroySprite();
+	dirtSprite.DestroySprite();
+	zombieSprite.DestroySprite();
+	fireSprite.DestroySprite();
+	projectileSprite.DestroySprite();
+	swipeSprite.DestroySprite();
+	healSprite.DestroySprite();
+	playerSprite.DestroySprite();
+	healthBarSprite.DestroySprite();
+	healthBarBackSprite.DestroySprite();
+	hitMarkerSprite.DestroySprite();
+	fireHitMarkerSprite.DestroySprite();
 
 	miniMap.Destroy();
 	Gizmos::destroy();
+
+	Sprite::DestroyMesh();
 
 	glDeleteProgram(shader);
 	delete camera;
@@ -172,8 +173,6 @@ bool EvolutionApplication::Update(float a_deltaTime)
 	{
 		if (gameObjects.zombies[i]->active && gameObjects.zombies[i]->alive)
 			gameObjects.zombies[i]->Update(&gameObjects, a_deltaTime);
-
-		gameObjects.zombies[i]->specialTraits = ZOMBIE_BIT_TRAIT_FIRETRAIL;
 	}
 	
 	// Update fires

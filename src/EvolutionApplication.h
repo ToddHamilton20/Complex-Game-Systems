@@ -40,7 +40,7 @@ private:
 	ZombieGenetics zombieGenetics;
 
 	Sprite grassSprite, dirtSprite, zombieSprite, swipeSprite, fireSprite, projectileSprite, healSprite;
-	Sprite healthBarBackSprite, healthBarSprite, hitMarkerSprite, fireHitMarkerSprite;
+	Sprite playerSprite, healthBarBackSprite, healthBarSprite, hitMarkerSprite, fireHitMarkerSprite;
 	GameObjects gameObjects;
 	MiniMap miniMap;
 
