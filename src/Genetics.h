@@ -14,7 +14,7 @@ struct Thread
 {
 	Thread() : readyToJoin(false) {}
 
-	std::thread thread;
+	std::thread* thread;
 	std::atomic<bool> readyToJoin;
 };
 
@@ -58,8 +58,11 @@ public:
 			std::lock_guard<std::mutex> guard(threadLock);
 			for (int i = 0; i < threads.size(); i++)
 			{
-				if (threads[i].thread.joinable())
-					threads[i].thread.join();
+				if (threads[i].thread->joinable())
+				{
+					threads[i].thread->join();
+					delete threads[i].thread;
+				}
 			}
 		}
 		threadThread.join();
@@ -71,7 +74,7 @@ public:
 	{
 		std::lock_guard<std::mutex> guard(threadLock);
 		threads.push_back(Thread());
-		threads[threads.size() - 1].thread(&Genetics::PInitialise, this, a_populationSize, a_childCount, threads.size() - 1);
+		//threads[threads.size() - 1].thread = new std::thread(&Genetics::PInitialise, this, a_populationSize, a_childCount, threads.size() - 1);
 	}
 
 	// Simulates a single generation.
@@ -94,7 +97,7 @@ public:
 	{
 		std::lock_guard<std::mutex> guard(threadLock);
 		threads.push_back(Thread());
-		threads[threads.size() - 1].thread(&Genetics::PSimulateGeneration, this, threads.size() - 1);
+		//threads[threads.size() - 1].thread = std::thread(&Genetics::PSimulateGeneration, this, threads.size() - 1);
 	}
 
 	// Starts a specific amount of generation simulations on a new thread.
@@ -103,7 +106,7 @@ public:
 	{
 		std::lock_guard<std::mutex> guard(threadLock);
 		threads.push_back(Thread());
-		threads[threads.size() - 1].thread(&Genetics::PSimulateGenerations, this, a_generations, threads.size() - 1);
+		//threads[threads.size() - 1].thread = std::thread(&Genetics::PSimulateGenerations, this, threads.size() - 1);
 	}
 
 	// Returns true if Initialisation has finished.
@@ -205,7 +208,7 @@ private:
 	std::mutex threadLock;
 
 	// Thread safe initialise function.
-	void PInitialise(unsigned int a_populationSize, unsigned int a_childCount, int threadID)
+	void PInitialise(unsigned int a_populationSize, unsigned int a_childCount, int threadID = -1)
 	{
 		std::mt19937 random; random.seed(time(nullptr));
 
@@ -244,7 +247,7 @@ private:
 	}
 
 	// Thead safe single generation function.
-	void PSimulateGeneration(int threadID)
+	void PSimulateGeneration(int threadID = -1)
 	{
 		std::mt19937 random; random.seed(time(nullptr));
 
@@ -269,7 +272,7 @@ private:
 	}
 
 	// Thread safe multiple generation function.
-	void PSimulateGenerations(int a_generations, int threadID)
+	void PSimulateGenerations(int a_generations, int threadID = -1)
 	{
 		std::mt19937 random; random.seed(time(nullptr));
 
@@ -301,13 +304,13 @@ private:
 	{
 		while (true)
 		{
-			bool threadsAreRunning = false;
 			for (int i = 0; i < threads.size(); i++)
 			{
-				if (threads[i].readyToJoin && threads[i].thread.joinable())
-					threads[i].thread.join();
-				else
-					threadsAreRunning = true;
+				if (threads[i].readyToJoin && threads[i].thread->joinable())
+				{
+					threads[i].thread->join();
+					delete threads[i].thread;
+				}
 			}
 
 			if (!threadsRunning)
