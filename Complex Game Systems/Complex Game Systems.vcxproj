@@ -23,12 +23,14 @@
     <ClCompile Include="..\dep\imgui\imgui_draw.cpp" />
     <ClCompile Include="..\src\BaseApplication.cpp" />
     <ClCompile Include="..\src\Camera.cpp" />
+    <ClCompile Include="..\src\Engine.cpp" />
     <ClCompile Include="..\src\EvolutionApplication.cpp" />
     <ClCompile Include="..\src\GameObject.cpp" />
     <ClCompile Include="..\src\Gizmos.cpp" />
     <ClCompile Include="..\src\gl_core_4_4.c" />
     <ClCompile Include="..\src\HealthBar.cpp" />
     <ClCompile Include="..\src\imgui_impl_glfw_gl3.cpp" />
+    <ClCompile Include="..\src\MenuApplication.cpp" />
     <ClCompile Include="..\src\MiniMap.cpp" />
     <ClCompile Include="..\src\Player.cpp" />
     <ClCompile Include="..\src\Shader.cpp" />
@@ -47,6 +49,7 @@
     <ClInclude Include="..\src\Camera.h" />
     <ClInclude Include="..\src\DamageTypes.h" />
     <ClInclude Include="..\src\Defines.h" />
+    <ClInclude Include="..\src\Engine.h" />
     <ClInclude Include="..\src\EvolutionApplication.h" />
     <ClInclude Include="..\src\GameObject.h" />
     <ClInclude Include="..\src\GameObjects.h" />
@@ -55,6 +58,7 @@
     <ClInclude Include="..\src\gl_core_4_4.h" />
     <ClInclude Include="..\src\HealthBar.h" />
     <ClInclude Include="..\src\imgui_impl_glfw_gl3.h" />
+    <ClInclude Include="..\src\MenuApplication.h" />
     <ClInclude Include="..\src\MiniMap.h" />
     <ClInclude Include="..\src\Player.h" />
     <ClInclude Include="..\src\Shader.h" />

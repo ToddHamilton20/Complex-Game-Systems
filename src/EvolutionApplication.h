@@ -19,7 +19,7 @@ class Camera;
 class EvolutionApplication : public BaseApplication
 {
 public:
-	EvolutionApplication() {}
+	EvolutionApplication(Engine* a_engine) : BaseApplication(a_engine) {}
 	virtual ~EvolutionApplication() {}
 
 	virtual bool Startup();

@@ -1,5 +1,6 @@
 IMPORTANT:
 - Simple menu
+- Game over indication
 
 NOT IMPORTANT:
 - Transparent fade out

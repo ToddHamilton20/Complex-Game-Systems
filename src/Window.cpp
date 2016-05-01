@@ -61,7 +61,7 @@ int Window::GetMouseButton(const int a_mouseButton) const
 
 bool Window::ShouldClose() const
 {
-	if (glfwWindowShouldClose(window) || glfwGetKey(window, GLFW_KEY_ESCAPE))
+	if (glfwWindowShouldClose(window))
 		return true;
 
 	return false;

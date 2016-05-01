@@ -29,6 +29,7 @@ class ZombieGenetics : public Genetics<Zombie*>
 {
 public:
 	ZombieGenetics() : Genetics(1), startWave(false) {}
+	~ZombieGenetics() {}
 
 	virtual Chromosome<Zombie*> GetMostFit();
 	virtual bool TerminationReached();

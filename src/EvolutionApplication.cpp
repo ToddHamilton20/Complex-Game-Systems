@@ -14,6 +14,7 @@
 #include <imgui.h>
 #include "imgui_impl_glfw_gl3.h"
 #include "Defines.h"
+#include "Engine.h"
 
 bool EvolutionApplication::Startup()
 {
@@ -108,6 +109,8 @@ bool EvolutionApplication::Startup()
 
 void EvolutionApplication::Shutdown()
 {
+	zombieGenetics.Destroy();
+
 	ImGui_ImplGlfwGL3_Shutdown();
 
 	// Delete all allocated memory
@@ -146,7 +149,7 @@ void EvolutionApplication::Shutdown()
 bool EvolutionApplication::Update(float a_deltaTime)
 {
 	if (Window::GetInstance().ShouldClose())
-		return false;
+		engine->Quit();
 
 	ImGui_ImplGlfwGL3_NewFrame();
 
@@ -283,6 +286,8 @@ bool EvolutionApplication::Update(float a_deltaTime)
 	// Add IMGUI window for genetic algorithm
 	zombieGenetics.UpdateIMGUI();
 
+	std::cout << "Update" << std::endl;
+
 	return true;
 }
 
@@ -360,6 +365,8 @@ void EvolutionApplication::Draw()
 	Gizmos::draw(camera->GetProjectionView());
 
 	ImGui::Render();
+
+	std::cout << "Draw" << std::endl;
 }
 
 void EvolutionApplication::StartWave()

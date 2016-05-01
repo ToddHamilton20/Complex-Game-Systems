@@ -10,6 +10,14 @@
 #include <random>
 #include <atomic>
 
+struct Thread
+{
+	Thread() : readyToJoin(false) {}
+
+	std::thread thread;
+	std::atomic<bool> readyToJoin;
+};
+
 // Chromosome struct, stores float fitness and std::vector<T> trait encoding
 template <typename T>
 struct Chromosome
@@ -32,6 +40,8 @@ public:
 	{
 		initialised = false;
 		threadsRunning = false;
+
+		threadThread = std::thread(&Genetics::ThreadThread, this);
 	}
 
 	// Reserves population and child memory, populates the population, resets generation count and checks intial fitness.
@@ -41,11 +51,27 @@ public:
 		PInitialise(a_populationSize, a_childCount);
 	}
 
+	// Joins all threads
+	void Destroy()
+	{
+		{
+			std::lock_guard<std::mutex> guard(threadLock);
+			for (int i = 0; i < threads.size(); i++)
+			{
+				if (threads[i].thread.joinable())
+					threads[i].thread.join();
+			}
+		}
+		threadThread.join();
+	}
+
 	// Starts a thread which reserves population and child memory, populates the population, resets generation count and checks intial fitness.
 	// Notes:		1. If one or more threaded generation simulations are running, will initialise after they finish.
 	void ThreadedInitialise(unsigned int a_populationSize, unsigned int a_childCount)
 	{
-		std::thread(&Genetics::PInitialise, this, a_populationSize, a_childCount).detach();
+		std::lock_guard<std::mutex> guard(threadLock);
+		threads.push_back(Thread());
+		threads[threads.size() - 1].thread(&Genetics::PInitialise, this, a_populationSize, a_childCount, threads.size() - 1);
 	}
 
 	// Simulates a single generation.
@@ -66,14 +92,18 @@ public:
 	// Notes:		1. If one or more threaded generation simulations are running, will process after they finish.
 	void SimulateThreadedGeneration()
 	{
-		std::thread(&Genetics::PSimulateGeneration, this).detach();
+		std::lock_guard<std::mutex> guard(threadLock);
+		threads.push_back(Thread());
+		threads[threads.size() - 1].thread(&Genetics::PSimulateGeneration, this, threads.size() - 1);
 	}
 
 	// Starts a specific amount of generation simulations on a new thread.
 	// Notes:		1. If one or more threaded generation simulations are running, will process after they finish.
 	void SimulateThreadedGenerations(int a_generations)
 	{
-		std::thread(&Genetics::PSimulateGenerations, this, a_generations).detach();
+		std::lock_guard<std::mutex> guard(threadLock);
+		threads.push_back(Thread());
+		threads[threads.size() - 1].thread(&Genetics::PSimulateGenerations, this, a_generations, threads.size() - 1);
 	}
 
 	// Returns true if Initialisation has finished.
@@ -164,12 +194,18 @@ private:
 	unsigned int childCount;
 	// How many genes in a chromosome.
 	const unsigned int geneLength;
+	// Vector of running threads;
+	std::vector<Thread> threads;
+	// Thread to join threads;
+	std::thread threadThread;
 
 	// Lock covers populationPool, population, parents and children variables.
 	std::mutex populationLock;
+	// Thread lock, covers thread vector
+	std::mutex threadLock;
 
 	// Thread safe initialise function.
-	void PInitialise(unsigned int a_populationSize, unsigned int a_childCount)
+	void PInitialise(unsigned int a_populationSize, unsigned int a_childCount, int threadID)
 	{
 		std::mt19937 random; random.seed(time(nullptr));
 
@@ -201,10 +237,14 @@ private:
 		generation = 0;
 		initialised = true;
 		threadsRunning--;
+
+		std::lock_guard<std::mutex> guard(threadLock);
+		if (threadID != -1)
+			threads[threadID].readyToJoin = true;
 	}
 
 	// Thead safe single generation function.
-	void PSimulateGeneration()
+	void PSimulateGeneration(int threadID)
 	{
 		std::mt19937 random; random.seed(time(nullptr));
 
@@ -222,10 +262,14 @@ private:
 
 		generation++;
 		threadsRunning--;
+
+		std::lock_guard<std::mutex> guard(threadLock);
+		if (threadID != -1)
+			threads[threadID].readyToJoin = true;
 	}
 
 	// Thread safe multiple generation function.
-	void PSimulateGenerations(int a_generations)
+	void PSimulateGenerations(int a_generations, int threadID)
 	{
 		std::mt19937 random; random.seed(time(nullptr));
 
@@ -247,5 +291,30 @@ private:
 		}
 
 		threadsRunning--;
+
+		std::lock_guard<std::mutex> guard(threadLock);
+		if (threadID != -1)
+			threads[threadID].readyToJoin = true;
+	}
+
+	void ThreadThread()
+	{
+		while (true)
+		{
+			bool threadsAreRunning = false;
+			for (int i = 0; i < threads.size(); i++)
+			{
+				if (threads[i].readyToJoin && threads[i].thread.joinable())
+					threads[i].thread.join();
+				else
+					threadsAreRunning = true;
+			}
+
+			if (!threadsRunning)
+			{
+				std::lock_guard<std::mutex> guard(threadLock);
+				threads.clear();
+			}
+		}
 	}
 };
