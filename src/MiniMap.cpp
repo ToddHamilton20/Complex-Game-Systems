@@ -3,6 +3,7 @@
 #include "Camera.h"
 #include "gl_core_4_4.h"
 #include "Defines.h"
+#include <iostream>
 
 void MiniMap::Init(glm::vec2 a_dimensions, glm::vec2 a_size, glm::vec2 a_position)
 {
@@ -26,14 +27,15 @@ void MiniMap::Init(glm::vec2 a_dimensions, glm::vec2 a_size, glm::vec2 a_positio
 	GLenum drawBuffers[] = { GL_COLOR_ATTACHMENT0 };
 	glDrawBuffers(1, drawBuffers);
 
-	GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
-	if (status != GL_FRAMEBUFFER_COMPLETE)
-		printf("Framebuffer Error!\n");
+	// The following commented lines will crash on repeated use. Unsure why
+
+	//GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+	//if (status != GL_FRAMEBUFFER_COMPLETE)
+	//	printf("Framebuffer Error!\n");
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	miniMapSprite.Load(true);
-
 	clearSprite.Load("Darken.png");
 }
 

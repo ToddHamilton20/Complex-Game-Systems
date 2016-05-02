@@ -9,6 +9,9 @@ void Engine::Run(BaseApplication* a_state)
 	double prevTime = glfwGetTime();
 	double currTime = glfwGetTime();
 
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	while (stateStack.size() > 0)
 	{
 		currTime = glfwGetTime();
@@ -18,6 +21,16 @@ void Engine::Run(BaseApplication* a_state)
 
 		if (quitFlag || stateStack.size() <= 0)
 			break;
+		if (popFlag)
+		{
+			popFlag = false;
+			continue;
+		}
+
+		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+
+		// NOT CLEARING DEPTH BUFFER, DEPTH BUFFER IS OFF.
+		glClear(GL_COLOR_BUFFER_BIT);
 
 		state->Draw();
 		Window::GetInstance().SwapBuffers();
@@ -40,6 +53,7 @@ void Engine::PopState()
 	stateStack.pop_back();
 	state->Shutdown();
 	delete state;
+	popFlag = true;
 }
 
 void Engine::Quit()

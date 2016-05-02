@@ -57,8 +57,8 @@ void ZombieGenetics::Fitness(std::mt19937& a_random)
 
 	startWave = true;
 	zombiesDead = false;
-	while (startWave) {}
-	while (!zombiesDead) {}
+	while (startWave && !terminate) {}
+	while (!zombiesDead && !terminate) {}
 
 	for (int i = 0; i < populationSize; i++)
 	{

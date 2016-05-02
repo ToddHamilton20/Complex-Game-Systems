@@ -1,6 +1,10 @@
 #pragma once
 
 #include "BaseApplication.h"
+#include "Sprite.h"
+#include "Button.h"
+
+class Camera;
 
 class MenuApplication : public BaseApplication
 {
@@ -14,4 +18,7 @@ public:
 	void Draw();
 
 private:
+	Sprite playButtonSprite, exitButtonSprite, backgroundSprite;
+	Button playButton, exitButton;
+	unsigned int shader;
 };

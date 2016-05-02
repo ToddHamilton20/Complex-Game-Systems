@@ -14,7 +14,7 @@ int main()
 	srand((unsigned int)time(0));
 	
 	Engine engine;
-	BaseApplication* baseApplication = new EvolutionApplication(&engine);
+	BaseApplication* baseApplication = new MenuApplication(&engine);
 	engine.Run(baseApplication);
 
 	return 0;

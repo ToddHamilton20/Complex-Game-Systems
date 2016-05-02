@@ -139,8 +139,6 @@ void EvolutionApplication::Shutdown()
 	miniMap.Destroy();
 	Gizmos::destroy();
 
-	Sprite::DestroyMesh();
-
 	glDeleteProgram(shader);
 	delete camera;
 	delete miniMapCamera;
@@ -286,21 +284,14 @@ bool EvolutionApplication::Update(float a_deltaTime)
 	// Add IMGUI window for genetic algorithm
 	zombieGenetics.UpdateIMGUI();
 
-	std::cout << "Update" << std::endl;
+	if (Window::GetInstance().GetKey(GLFW_KEY_ESCAPE))
+		engine->PopState();
 
 	return true;
 }
 
 void EvolutionApplication::Draw()
 {
-	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
-
-	// NOT CLEARING DEPTH BUFFER, DEPTH BUFFER IS OFF.
-	glClear(GL_COLOR_BUFFER_BIT);
-
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
 	// Draw arena tiles
 	for (int i = 0; i < gameObjects.arenaTiles.size(); i++)
 	{
@@ -360,13 +351,9 @@ void EvolutionApplication::Draw()
 			gameObjects.hitMarkers[i]->transparency);
 	}
 
-	glDisable(GL_BLEND);
-
 	Gizmos::draw(camera->GetProjectionView());
 
 	ImGui::Render();
-
-	std::cout << "Draw" << std::endl;
 }
 
 void EvolutionApplication::StartWave()

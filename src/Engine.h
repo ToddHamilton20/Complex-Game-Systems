@@ -15,5 +15,5 @@ public:
 
 private:
 	std::vector<BaseApplication*> stateStack;
-	bool quitFlag;
+	bool quitFlag, popFlag;
 };

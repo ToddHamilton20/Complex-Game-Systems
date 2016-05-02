@@ -29,13 +29,6 @@ unsigned int Shader::CreateShader(const char* a_vertexShaderPath, const char* a_
 		glShaderSource(vertexShader, 1, (const char**)&vsSource, 0);
 		glCompileShader(vertexShader);
 		glAttachShader(programID, vertexShader);
-
-		int infoLogLength = 0;
-		glGetShaderiv(vertexShader, GL_INFO_LOG_LENGTH, &infoLogLength);
-		char* infoLog = new char[infoLogLength];
-		glGetShaderInfoLog(vertexShader, infoLogLength, 0, infoLog);
-		printf("%s\n", infoLog);
-		delete[] infoLog;
 	}
 
 	// Read, compile and attach fragment shader
@@ -47,13 +40,6 @@ unsigned int Shader::CreateShader(const char* a_vertexShaderPath, const char* a_
 		glShaderSource(fragmentShader, 1, (const char**)&fsSource, 0);
 		glCompileShader(fragmentShader);
 		glAttachShader(programID, fragmentShader);
-
-		int infoLogLength = 0;
-		glGetShaderiv(fragmentShader, GL_INFO_LOG_LENGTH, &infoLogLength);
-		char* infoLog = new char[infoLogLength];
-		glGetShaderInfoLog(fragmentShader, infoLogLength, 0, infoLog);
-		printf("%s\n", infoLog);
-		delete[] infoLog;
 	}
 
 	// Read, compile and attach geometry shader
@@ -65,13 +51,6 @@ unsigned int Shader::CreateShader(const char* a_vertexShaderPath, const char* a_
 		glShaderSource(geometryShader, 1, (const char**)&fsSource, 0);
 		glCompileShader(geometryShader);
 		glAttachShader(programID, geometryShader);
-
-		int infoLogLength = 0;
-		glGetShaderiv(geometryShader, GL_INFO_LOG_LENGTH, &infoLogLength);
-		char* infoLog = new char[infoLogLength];
-		glGetShaderInfoLog(geometryShader, infoLogLength, 0, infoLog);
-		printf("%s\n", infoLog);
-		delete[] infoLog;
 	}
 
 	// Link the shaders together to create program
@@ -80,15 +59,7 @@ unsigned int Shader::CreateShader(const char* a_vertexShaderPath, const char* a_
 
 	// Check for success - Debug log on fail
 	if (success == GL_FALSE)
-	{
-		int infoLogLength = 0;
-		glGetProgramiv(programID, GL_INFO_LOG_LENGTH, &infoLogLength);
-		char* infoLog = new char[infoLogLength];
-		glGetProgramInfoLog(programID, infoLogLength, 0, infoLog);
-		printf("Error: Failed to link shader program!\n");
-		printf("%s\n", infoLog);
-		delete[] infoLog;
-	}
+		printf("Shader Error");
 
 	// Delete shaders
 	if (usingVertexShader)
