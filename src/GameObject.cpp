@@ -25,3 +25,13 @@ void GameObject::Draw(Camera* a_camera, int a_shader) const
 {
 	sprite.DrawAt(a_camera, a_shader, position, size, rotation, transparency);
 }
+
+void UIGameObject::Draw(Camera* a_camera, int a_shader) const
+{
+	sprite.DrawAtScreen(a_shader, position, size, rotation, transparency);
+}
+
+const glm::vec2 UIGameObject::GetScreenPosition(Camera* a_camera) const
+{
+	return position;
+}

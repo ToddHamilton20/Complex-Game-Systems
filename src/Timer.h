@@ -1,5 +1,5 @@
 // Author:					Todd Hamilton
-// Last Change:				28/04/16
+// Last Change:				01/05/16
 // Description of File:		Timer and Cooldown classes
 
 #pragma once

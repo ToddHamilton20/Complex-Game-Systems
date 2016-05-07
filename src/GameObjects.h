@@ -1,5 +1,5 @@
 // Author:					Todd Hamilton
-// Last Change:				28/04/16
+// Last Change:				08/05/16
 // Description of File:		GameObjects struct
 
 #pragma once
@@ -16,7 +16,10 @@ class Player;
 // GameObjects struct, Once instance stores all game objects.
 struct GameObjects
 {
+	GameObjects() : player(nullptr) , gameOverScreen(nullptr) {}
+
 	Player* player;
+	Attack* gameOverScreen;
 	std::vector<Zombie*> zombies;
 	std::vector<Attack*> attacks;
 	std::vector<Attack*> fires;

@@ -1,5 +1,5 @@
 // Author:					Todd Hamilton
-// Last Change:				28/04/16
+// Last Change:				08/05/16
 // Description of File:		EvolutionApplication class, game is run here. Includes all game code and objects
 
 #pragma once
@@ -39,7 +39,7 @@ private:
 	ZombieGenetics zombieGenetics;
 
 	Sprite grassSprite, dirtSprite, zombieSprite, swipeSprite, fireSprite, projectileSprite, healSprite;
-	Sprite playerSprite, healthBarBackSprite, healthBarSprite, hitMarkerSprite, fireHitMarkerSprite;
+	Sprite playerSprite, healthBarBackSprite, healthBarSprite, hitMarkerSprite, fireHitMarkerSprite, gameOverSprite;
 	GameObjects gameObjects;
 	MiniMap miniMap;
 

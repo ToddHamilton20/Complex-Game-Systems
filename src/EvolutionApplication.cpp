@@ -45,6 +45,7 @@ bool EvolutionApplication::Startup()
 	hitMarkerSprite.Load("HitMarker.png");
 	fireHitMarkerSprite.Load("FireHitMarker.png");
 	playerSprite.Load("Player.png");
+	gameOverSprite.Load("GameOver.png");
 
 	// Create and init player
 	gameObjects.player = new Player();
@@ -122,6 +123,11 @@ void EvolutionApplication::Shutdown()
 	DeleteVector(gameObjects.attacks);
 
 	delete gameObjects.player;
+	if (gameObjects.gameOverScreen != nullptr)
+	{
+		delete gameObjects.gameOverScreen;
+		gameObjects.gameOverScreen = nullptr;
+	}
 
 	grassSprite.DestroySprite();
 	dirtSprite.DestroySprite();
@@ -135,6 +141,7 @@ void EvolutionApplication::Shutdown()
 	healthBarBackSprite.DestroySprite();
 	hitMarkerSprite.DestroySprite();
 	fireHitMarkerSprite.DestroySprite();
+	gameOverSprite.DestroySprite();
 
 	miniMap.Destroy();
 	Gizmos::destroy();
@@ -252,6 +259,16 @@ bool EvolutionApplication::Update(float a_deltaTime)
 			DeleteGameObject(gameObjects.zombies, gameObjects.zombies[i]);
 	}
 
+	// Game Over Screen
+	if (!gameObjects.player->alive && gameObjects.gameOverScreen == nullptr)
+	{
+		Attack* gameOverScreen = new Attack(50000);
+		gameOverScreen->position = glm::vec2(SCREEN_X / 2.0f, SCREEN_Y / 2.0f);
+		gameOverScreen->size = glm::vec2(SCREEN_X, SCREEN_Y);
+		gameOverScreen->sprite = gameOverSprite;
+		gameObjects.gameOverScreen = gameOverScreen;
+	}
+
 	// If wave still running and SPLITTER zombies dead
 	if (waveRunning && gameObjects.zombies.size() == POPULATION_SIZE + CHILD_COUNT)
 	{
@@ -349,6 +366,11 @@ void EvolutionApplication::Draw()
 			gameObjects.hitMarkers[i]->position,
 			gameObjects.hitMarkers[i]->size, 0.0f,
 			gameObjects.hitMarkers[i]->transparency);
+	}
+
+	if (gameObjects.gameOverScreen != nullptr)
+	{
+		gameObjects.gameOverScreen->sprite.DrawAtScreen(shader, glm::vec2(SCREEN_X / 2.0f, SCREEN_Y / 2.0f), glm::vec2(SCREEN_X, SCREEN_Y));
 	}
 
 	Gizmos::draw(camera->GetProjectionView());

@@ -1,3 +1,7 @@
+// Author:					Todd Hamilton
+// Last Change:				03/05/16
+// Description of File:		Button class. 
+
 #pragma once
 
 #include "glm\glm.hpp"
