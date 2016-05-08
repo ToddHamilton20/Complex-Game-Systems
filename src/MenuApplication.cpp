@@ -10,12 +10,12 @@
 
 bool MenuApplication::Startup()
 {
-	shader = Shader::CreateShader("Shader.vert", "Shader.frag");
+	shader = Shader::CreateShader("../Resources/Shaders/Shader.vert", "../Resources/Shaders/Shader.frag");
 	glUseProgram(shader);
 
-	backgroundSprite.Load("Background.png");
-	playButtonSprite.Load("PlayButton.png");
-	exitButtonSprite.Load("ExitButton.png");
+	backgroundSprite.Load	("../Resources/Textures/Background.png");
+	playButtonSprite.Load	("../Resources/Textures/PlayButton.png");
+	exitButtonSprite.Load	("../Resources/Textures/ExitButton.png");
 
 	playButton.Init(glm::vec2(SCREEN_X / 2.0f, SCREEN_Y / 2.0f - 100), glm::vec2(250, 100));
 	exitButton.Init(glm::vec2(SCREEN_X / 2.0f, SCREEN_Y / 2.0f + 100), glm::vec2(250, 100));

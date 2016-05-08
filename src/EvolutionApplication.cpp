@@ -24,7 +24,7 @@ bool EvolutionApplication::Startup()
 	io.DisplaySize.x = SCREEN_X;
 	io.DisplaySize.y = SCREEN_Y;
 
-	shader = Shader::CreateShader("Shader.vert", "Shader.frag");
+	shader = Shader::CreateShader("../Resources/Shaders/Shader.vert", "../Resources/Shaders/Shader.frag");
 	glUseProgram(shader);
 
 	camera = new Camera(SCREEN_X, SCREEN_Y);
@@ -33,19 +33,19 @@ bool EvolutionApplication::Startup()
 	miniMap.Init(glm::vec2(ARENA_SIZE + TILE_SIZE * 2.0f, ARENA_SIZE + TILE_SIZE * 2.0f), glm::vec2(SCREEN_Y, SCREEN_Y), glm::vec2(SCREEN_X / 2.0f, SCREEN_Y / 2.0f));
 
 	// Init textures
-	grassSprite.Load("Grass.png");
-	dirtSprite.Load("Dirt.png");
-	zombieSprite.Load("Zombie.png");
-	swipeSprite.Load("Swipe.png");
-	fireSprite.Load("Fire.png");
-	projectileSprite.Load("Projectile.png");
-	healSprite.Load("Heal.png");
-	healthBarSprite.Load("HealthBar.png");
-	healthBarBackSprite.Load("HealthBarBack.png");
-	hitMarkerSprite.Load("HitMarker.png");
-	fireHitMarkerSprite.Load("FireHitMarker.png");
-	playerSprite.Load("Player.png");
-	gameOverSprite.Load("GameOver.png");
+	grassSprite.Load			("../Resources/Textures/Grass.png");
+	dirtSprite.Load				("../Resources/Textures/Dirt.png");
+	zombieSprite.Load			("../Resources/Textures/Zombie.png");
+	swipeSprite.Load			("../Resources/Textures/Swipe.png");
+	fireSprite.Load				("../Resources/Textures/Fire.png");
+	projectileSprite.Load		("../Resources/Textures/Projectile.png");
+	healSprite.Load				("../Resources/Textures/Heal.png");
+	healthBarSprite.Load		("../Resources/Textures/HealthBar.png");
+	healthBarBackSprite.Load	("../Resources/Textures/HealthBarBack.png");
+	hitMarkerSprite.Load		("../Resources/Textures/HitMarker.png");
+	fireHitMarkerSprite.Load	("../Resources/Textures/FireHitMarker.png");
+	playerSprite.Load			("../Resources/Textures/Player.png");
+	gameOverSprite.Load			("../Resources/Textures/GameOver.png");
 
 	// Create and init player
 	gameObjects.player = new Player();

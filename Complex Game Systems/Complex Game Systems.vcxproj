@@ -146,6 +146,7 @@
     <OutDir>$(SolutionDir)bin\</OutDir>
     <IncludePath>$(SolutionDir)dep\glfw-3.1.2\include;$(SolutionDir)dep\glm;$(SolutionDir)imgui;$(SolutionDir)stb-master;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)dep;$(SolutionDir)dep/glfw-3.1.2/src/$(Configuration);$(LibraryPath)</LibraryPath>
+    <TargetName>$(ProjectName)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
