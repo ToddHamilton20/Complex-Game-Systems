@@ -29,7 +29,12 @@ void Zombie::Update(GameObjects* a_gameObjects, float a_deltaTime)
 		if (charging)
 			speed = 50.0f;
 
-		position += -normalizeDifference * glm::min((float)speed * a_deltaTime * 10.0f, distance - size.x / 2.0f - a_gameObjects->player->size.x / 2.0f);
+		glm::vec2 move = -normalizeDifference * glm::min((float)speed * a_deltaTime * 10.0f, distance - size.x / 2.0f - a_gameObjects->player->size.x / 2.0f);
+
+		position += move;
+
+		if (distance > a_gameObjects->player->size.x / 2.0f + size.x / 2.0f)
+			rotation = glm::atan(move.x, -move.y) * 180 / glm::pi<float>();
 
 		if (charging)
 			speed = oldSpeed;

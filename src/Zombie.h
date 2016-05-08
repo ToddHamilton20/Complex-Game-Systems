@@ -1,5 +1,5 @@
 // Author:					Todd Hamilton
-// Last Change:				01/05/16
+// Last Change:				08/05/16
 // Description of File:		Zombie class
 
 #pragma once
