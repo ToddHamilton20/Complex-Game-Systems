@@ -84,7 +84,7 @@ void Player::Update(GameObjects* a_gameObjects, float a_deltaTime)
 		{
 			Attack* attack = new Attack(0.5f, glm::vec2(0, 0), true);
 			attack->position = glm::vec2(SCREEN_X / 2.0f, SCREEN_Y / 2.0f);
-			attack->size = glm::vec2(1280, 720);
+			attack->size = glm::vec2(SCREEN_X, SCREEN_Y);
 			attack->sprite = hitMarkerSprite;
 			a_gameObjects->hitMarkers.push_back(attack);
 

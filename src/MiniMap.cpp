@@ -36,7 +36,7 @@ void MiniMap::Init(glm::vec2 a_dimensions, glm::vec2 a_size, glm::vec2 a_positio
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	miniMapSprite.Load(true);
-	clearSprite.Load("Darken.png");
+	clearSprite.Load("../Resources/Textures/Darken.png");
 }
 
 void MiniMap::Draw(const GameObjects& a_gameObjects, Camera* a_camera, unsigned int a_worldShader, unsigned int a_miniMapShader)

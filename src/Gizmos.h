@@ -1,7 +1,3 @@
-// Author:					Conan Burke (?)
-// Last Change:				-
-// Description of File:		-
-
 #pragma once
 
 #include <glm/fwd.hpp>

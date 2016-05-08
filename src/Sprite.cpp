@@ -2,6 +2,8 @@
 
 #include "gl_core_4_4.h"
 #include "Camera.h"
+#include "Defines.h"
+
 #include <iostream>
 #include <glm\glm.hpp>
 #include <glm\ext.hpp>
@@ -195,8 +197,8 @@ void Sprite::DrawAt(Camera* a_camera, int a_shader, const glm::vec2& a_position,
 
 void Sprite::DrawAtScreen(int a_shader, const glm::vec2& a_position, const glm::vec2& a_size, float a_rotation, float a_alpha) const
 {
-	Camera* camera = new Camera(1280, 720);
-	camera->SetPos(glm::vec2(640, 360));
+	Camera* camera = new Camera(SCREEN_X, SCREEN_Y);
+	camera->SetPos(glm::vec2(SCREEN_X / 2.0f, SCREEN_Y / 2.0f));
 
 	if (!initialised)
 	{
