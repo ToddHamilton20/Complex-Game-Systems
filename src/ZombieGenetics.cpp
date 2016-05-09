@@ -109,6 +109,10 @@ void ZombieGenetics::Crossover(std::mt19937& a_random)
 				*parent1Genes = parents[i * 2]->genes[0],
 				*parent2Genes = parents[i * 2 + 1]->genes[0];
 
+		childGenes->parentTraits.clear();
+		childGenes->parentTraits.push_back(ParentTraits(parents[i * 2]->fitness, parent1Genes->speed, parent1Genes->strength, parent1Genes->maxHealth, parent1Genes->scale, parent1Genes->specialTraits));
+		childGenes->parentTraits.push_back(ParentTraits(parents[i * 2 + 1]->fitness, parent2Genes->speed, parent2Genes->strength, parent2Genes->maxHealth, parent2Genes->scale, parent2Genes->specialTraits));
+
 		std::uniform_real_distribution<float> distribution(0.0f, 99.0f);
 
 #pragma region MAX_HEALTH
@@ -279,7 +283,7 @@ void ZombieGenetics::UpdateIMGUI()
 	ImVec4 blue(0.5f, 0.5f, 1.0f, 1.0f);
 
 	ImGui::Begin("Genetic Algorithm");
-	ImGui::Columns(2);
+	ImGui::Columns(4);
 
 	int selectedIndex = -1;
 
@@ -327,7 +331,7 @@ void ZombieGenetics::UpdateIMGUI()
 
 		ImGui::NextColumn();
 		ImGui::SetWindowFontScale(1.5f);
-		ImGui::Text("");
+		ImGui::TextColored(blue, "Child");
 		ImGui::SetWindowFontScale(1.0f);
 		std::string fitness = std::string("Fitness: ").append(std::to_string(population[selectedIndex].fitness));
 		ImGui::Text(fitness.c_str());
@@ -349,7 +353,37 @@ void ZombieGenetics::UpdateIMGUI()
 		ImGui::TextColored(zombie->specialTraits & ZOMBIE_BIT_TRAIT_HEALING ? green : red, "Healing");
 		ImGui::TextColored(zombie->specialTraits & ZOMBIE_BIT_TRAIT_TRANSPARENT ? green : red, "Invisibility");
 		ImGui::TextColored(zombie->specialTraits & ZOMBIE_BIT_TRAIT_SHOCKWAVE ? green : red, "Knockback");
-		ImGui::NextColumn();
+
+		if (zombie->parentTraits.size() == 2)
+		{
+			for (int i = 0; i < 2; i++)
+			{
+				ImGui::NextColumn();
+				ImGui::SetWindowFontScale(1.5f);
+				ImGui::TextColored(blue, "Parent");
+				ImGui::SetWindowFontScale(1.0f);
+				std::string fitness = std::string("Fitness: ").append(std::to_string(zombie->parentTraits[i].fitness));
+				ImGui::Text(fitness.c_str());
+				ImGui::Text("");
+				std::string strength = std::string("Strength: ").append(std::to_string(zombie->parentTraits[i].strength));
+				ImGui::Text(strength.c_str());
+				std::string speed = std::string("Speed: ").append(std::to_string(zombie->parentTraits[i].speed));
+				ImGui::Text(speed.c_str());
+				std::string size = std::string("Size: ").append(std::to_string(zombie->parentTraits[i].scale));
+				ImGui::Text(size.c_str());
+				std::string health = std::string("Max Health: ").append(std::to_string(zombie->parentTraits[i].maxHealth));
+				ImGui::Text(health.c_str());
+				ImGui::Text("");
+				ImGui::TextColored(zombie->parentTraits[i].specialTraits & ZOMBIE_BIT_TRAIT_FIRETRAIL ? green : red, "Fire Trail");
+				ImGui::TextColored(zombie->parentTraits[i].specialTraits & ZOMBIE_BIT_TRAIT_ACIDBREATH ? green : red, "Acid Breath");
+				ImGui::TextColored(zombie->parentTraits[i].specialTraits & ZOMBIE_BIT_TRAIT_CHARGE ? green : red, "Charge");
+				ImGui::TextColored(zombie->parentTraits[i].specialTraits & ZOMBIE_BIT_TRAIT_TELEPORT ? green : red, "Teleport");
+				ImGui::TextColored(zombie->parentTraits[i].specialTraits & ZOMBIE_BIT_TRAIT_SPLITTING ? green : red, "Splitting");
+				ImGui::TextColored(zombie->parentTraits[i].specialTraits & ZOMBIE_BIT_TRAIT_HEALING ? green : red, "Healing");
+				ImGui::TextColored(zombie->parentTraits[i].specialTraits & ZOMBIE_BIT_TRAIT_TRANSPARENT ? green : red, "Invisibility");
+				ImGui::TextColored(zombie->parentTraits[i].specialTraits & ZOMBIE_BIT_TRAIT_SHOCKWAVE ? green : red, "Knockback");
+			}
+		}
 	}
 
 	ImGui::End();

@@ -9,9 +9,20 @@
 #include "Timer.h"
 #include "HealthBar.h"
 #include <atomic>
+#include <vector>
 
 class Player;
 class GameObjects;
+
+struct ParentTraits
+{
+	ParentTraits(float a_fitness, float a_speed, float a_strength, float a_maxHealth, float a_scale, int a_specialTraits) : 
+	fitness(a_fitness), speed(a_speed), strength(a_strength), maxHealth(a_maxHealth), scale(a_scale), specialTraits(a_specialTraits) {}
+
+	float fitness;
+	float speed, strength, maxHealth, scale;
+	int specialTraits;
+};
 
 // Zombie class, Atomics are used as the genetic algorithm thread will refernece this class.
 class Zombie : public GameObject
@@ -37,6 +48,9 @@ public:
 	Sprite projectileSprite, fireSprite, healSprite;
 
 	void Respawn();
+
+	// Vector to store parent traits, used for GUI only
+	std::vector<ParentTraits> parentTraits;
 
 private:
 	glm::vec2 lastFire;
