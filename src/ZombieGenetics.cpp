@@ -62,7 +62,7 @@ void ZombieGenetics::Fitness(std::mt19937& a_random)
 
 	for (int i = 0; i < populationSize; i++)
 	{
-		population[i].fitness = population[i].genes[0]->damageToPlayer + population[i].genes[0]->timeAlive;
+		population[i].fitness = population[i].genes[0]->damageToPlayer * damageWeight + population[i].genes[0]->timeAlive * timeAliveWeight;
 	}
 }
 
